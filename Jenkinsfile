@@ -26,6 +26,21 @@ pipeline {
             }
         }
         
+         stage('Vulnerability Scan') {
+            steps {
+                script {
+                    // Scanner l'image Docker avec Trivy en utilisant l'image Docker de Trivy
+                    def scanResult = bat(script: 'docker run --rm --net=host aquasec/trivy:latest image --exit-code 1 --severity HIGH,CRITICAL wiembenmlouka/docker-spring-demo-test-sq', returnStatus: true)
+
+                    if (scanResult != 0) {
+                        error "Vulnerabilities detected! Please check the scan report."
+                    } else {
+                        echo "No critical vulnerabilities found."
+                    }
+                }
+            }
+        }
+        
          stage('Docker Run') {
             steps {
                 // Exécuter le conteneur sur le port 8081

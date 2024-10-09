@@ -24,7 +24,7 @@ public class HelloControllerTest {
 	    public void testBonjourEndpoint() throws Exception {
 	        this.mockMvc.perform(get("/"))
 	            .andExpect(status().isOk())
-	            .andExpect(content().string("Hello Im an App"));
+	            .andExpect(content().string("Hello Im an App!"));
 	    }
 
 	    @Test
