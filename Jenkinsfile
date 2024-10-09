@@ -29,8 +29,8 @@ pipeline {
         stage('Docker Push') {
             steps {
                 // Pousser l'image vers Docker Hub
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
-                    bat "echo %DOCKERHUB_PASSWORD% | docker login -u %DOCKERHUB_USERNAME% --password-stdin"
+               docker.withRegistry( '', dockerhub-credentials)  {
+                   
                     bat "docker push wiembenmlouka/docker-spring-demo-test-sq"
                 }
             }
