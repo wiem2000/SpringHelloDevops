@@ -18,6 +18,18 @@ pipeline {
                 bat 'mvn test'
             }
         }
+        
+         stage('SonarQube Analysis') {
+            steps {
+                bat """
+                mvn clean verify sonar:sonar \
+                -Dsonar.projectKey=spring-hello-devops \
+                -Dsonar.projectName='spring-hello-devops' \
+                -Dsonar.host.url=http://localhost:9000 \
+                -Dsonar.token=sqp_4c803a83f64eed7418c19d111cd15ffc775a5ed8
+                """
+            }
+        }   
 
         stage('Docker Build') {
             steps {
@@ -38,34 +50,24 @@ pipeline {
               }
           }   
           
-         stage('SonarQube Analysis') {
-            steps {
-                bat """
-                mvn clean verify sonar:sonar \
-                -Dsonar.projectKey=spring-hello-devops \
-                -Dsonar.projectName='spring-hello-devops' \
-                -Dsonar.host.url=http://localhost:9000 \
-                -Dsonar.token=sqp_4c803a83f64eed7418c19d111cd15ffc775a5ed8
-                """
-            }
-        }       
+          
         
          stage('Docker Run') {
             steps {
-                // Exécuter le conteneur sur le port 8081
+              
                 bat 'docker run -d -p 8081:8080 wiembenmlouka/docker-spring-demo-test-sq'
             }
         }
 
 
-       // stage('Docker Push') {
-            //steps {
+        stage('Docker Push') {
+            steps {
                 
-                  // bat 'docker login -u wiembenmlouka -p Wiwi@2000'
+                  bat 'docker login -u wiembenmlouka -p Wiwi@2000'
 
-                   // bat "docker push wiembenmlouka/docker-spring-demo-test-sq"
+                   bat "docker push wiembenmlouka/docker-spring-demo-test-sq"
                 
-            //}
-       // }
+            }
+        }
     }
 }
