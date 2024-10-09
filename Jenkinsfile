@@ -25,6 +25,13 @@ pipeline {
                 bat 'docker build -t wiembenmlouka/docker-spring-demo-test-sq .'
             }
         }
+        
+         stage('Docker Run') {
+            steps {
+                // Exécuter le conteneur sur le port 8081
+                bat 'docker run -d -p 8081:8080 wiembenmlouka/docker-spring-demo-test-sq'
+            }
+        }
 
 
        // stage('Docker Push') {
