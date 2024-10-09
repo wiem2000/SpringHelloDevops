@@ -26,18 +26,10 @@ pipeline {
             }
         }
         
-         stage('Vulnerability Scan') {
+      stage('Snyk Vulnerability Scan') {
             steps {
-                script {
-                    // Scanner l'image Docker avec Trivy en utilisant l'image Docker de Trivy
-                    def scanResult = bat(script: 'docker run --rm --net=host aquasec/trivy:latest image --exit-code 1 --severity HIGH,CRITICAL wiembenmlouka/docker-spring-demo-test-sq', returnStatus: true)
-
-                    if (scanResult != 0) {
-                        error "Vulnerabilities detected! Please check the scan report."
-                    } else {
-                        echo "No critical vulnerabilities found."
-                    }
-                }
+                // Scanner les vulnérabilités avec Snyk
+                bat 'docker run --rm -e SNYK_TOKEN=40a4a1d0-f1ad-4226-ac09-919ed4f30c1e -v /var/run/docker.sock:/var/run/docker.sock snyk/snyk:docker snyk test --docker wiembenmlouka/docker-spring-demo-test-sq'
             }
         }
         
