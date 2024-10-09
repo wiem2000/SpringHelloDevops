@@ -50,6 +50,15 @@ pipeline {
               }
           }   
           
+          stage('Docker Push') {
+            steps {
+                
+                  bat 'docker login -u wiembenmlouka -p Wiwi@2000'
+
+                   bat "docker push wiembenmlouka/docker-spring-demo-test-sq"
+                
+            }
+        }
           
         
          stage('Docker Run') {
@@ -59,15 +68,6 @@ pipeline {
             }
         }
 
-
-        stage('Docker Push') {
-            steps {
-                
-                  bat 'docker login -u wiembenmlouka -p Wiwi@2000'
-
-                   bat "docker push wiembenmlouka/docker-spring-demo-test-sq"
-                
-            }
-        }
+    
     }
 }
