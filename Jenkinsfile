@@ -26,12 +26,17 @@ pipeline {
             }
         }
         
-      stage('Snyk Vulnerability Scan') {
-            steps {
-                // Scanner les vulnérabilités avec Snyk
-                bat 'docker run --rm -e SNYK_TOKEN=40a4a1d0-f1ad-4226-ac09-919ed4f30c1e -v /var/run/docker.sock:/var/run/docker.sock snyk/snyk:docker snyk test --docker wiembenmlouka/docker-spring-demo-test-sq'
-            }
-        }
+       stage('Snyk Vulnerability Scan') {
+          steps {
+        // Scanner les vulnérabilités avec Snyk
+        bat '''
+            docker run --rm \
+            -e SNYK_TOKEN=40a4a1d0-f1ad-4226-ac09-919ed4f30c1e \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            snyk/snyk:docker snyk test --docker wiembenmlouka/docker-spring-demo-test-sq --severity-threshold=critical
+        '''
+    }
+}
         
          stage('Docker Run') {
             steps {
