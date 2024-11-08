@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -19,13 +20,12 @@ public class UsersService {
         
         return users;
     }
-
+   
  
-    public UsersEntity getUserById(Integer id) {
+    public Optional<UsersEntity> getUserById(Integer id) {
         List<UsersEntity> users = getAllUsers();
         return users.stream()
                     .filter(user -> user.getUsersId().equals(id))
-                    .findFirst()
-                    .orElse(null); 
+                    .findFirst(); 
     }
 }

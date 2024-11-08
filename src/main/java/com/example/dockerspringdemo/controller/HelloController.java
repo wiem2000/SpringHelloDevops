@@ -4,8 +4,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,10 +36,20 @@ public class HelloController {
         return usersService.getAllUsers();
     }
 
-
+/*
     @GetMapping("/users/{id}")
     public UsersEntity getUserById(@PathVariable("id") Integer id) {
         return usersService.getUserById(id);
+    }
+    */
+    @GetMapping("/users/{id}")
+    public ResponseEntity<UsersEntity> getUserById(@PathVariable Integer id) {
+        Optional<UsersEntity> user = usersService.getUserById(id); 
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get()); 
+        } else {
+            return ResponseEntity.notFound().build(); 
+        }
     }
     
 }
