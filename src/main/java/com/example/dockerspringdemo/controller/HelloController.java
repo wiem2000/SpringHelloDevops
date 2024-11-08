@@ -4,18 +4,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+
 import com.example.dockerspringdemo.entity.UsersEntity;
 import com.example.dockerspringdemo.service.UsersService;
 
 @RestController
 public class HelloController {
+	
+    @Autowired
+    private UsersService usersService;
+    
 
     @GetMapping("/")
     public String bonjour() {
@@ -27,8 +30,7 @@ public class HelloController {
         return "Hello";
     }
     
-    @Autowired
-    private UsersService usersService;
+
 
     
     @GetMapping("/users")
