@@ -5,8 +5,9 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    git 'https://github.com/wiem2000/SpringHelloDevops.git' 
+                   git branch: 'hello-commit', url: 'https://github.com/wiem2000/SpringHelloDevops.git'
                 }
+                
                 
                 bat 'mvn clean package'
             }
