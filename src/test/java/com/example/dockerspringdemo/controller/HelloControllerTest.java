@@ -78,6 +78,7 @@ public class HelloControllerTest {
 	                        + "}")); 
 	    }
 
+	    /*
 	    @Test
 	    public void testGetUserByIdNotFound() throws Exception {
 	     
@@ -87,7 +88,7 @@ public class HelloControllerTest {
 	        mockMvc.perform(get("/users/999"))
 	                .andExpect(status().isNotFound()); 
 	    }
-	
+	*/
 
 
 

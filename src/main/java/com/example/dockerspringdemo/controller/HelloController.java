@@ -36,20 +36,11 @@ public class HelloController {
         return usersService.getAllUsers();
     }
 
-/*
+
     @GetMapping("/users/{id}")
     public UsersEntity getUserById(@PathVariable("id") Integer id) {
         return usersService.getUserById(id);
     }
-    */
-    @GetMapping("/users/{id}")
-    public ResponseEntity<UsersEntity> getUserById(@PathVariable Integer id) {
-        Optional<UsersEntity> user = usersService.getUserById(id); 
-        if (user.isPresent()) {
-            return ResponseEntity.ok(user.get()); 
-        } else {
-            return ResponseEntity.notFound().build(); 
-        }
-    }
     
+
 }
