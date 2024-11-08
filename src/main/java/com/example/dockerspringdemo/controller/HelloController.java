@@ -16,9 +16,13 @@ import com.example.dockerspringdemo.service.UsersService;
 @RestController
 public class HelloController {
 	
-    @Autowired
-    private UsersService usersService;
-    
+
+	 private final UsersService usersService;
+
+	   
+	    public HelloController(UsersService usersService) {
+	        this.usersService = usersService;
+	    }
 
     @GetMapping("/")
     public String bonjour() {

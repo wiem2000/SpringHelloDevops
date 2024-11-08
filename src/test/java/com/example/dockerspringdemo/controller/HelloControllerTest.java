@@ -41,7 +41,7 @@ public class HelloControllerTest {
 	    private List<UsersEntity> usersList;
 
 	    @BeforeEach
-	    public void setUp() {
+	    void setUp() {
 	      
 	        usersList = Arrays.asList(
 	                new UsersEntity(1, "john_doe", "John", "Doe", "ADMIN"),
@@ -51,7 +51,7 @@ public class HelloControllerTest {
 	    }
 
 	    @Test
-	    public void testGetAllUsers() throws Exception {
+	    void testGetAllUsers() throws Exception {
 	     
 	        when(usersService.getAllUsers()).thenReturn(usersList);
 
@@ -66,7 +66,7 @@ public class HelloControllerTest {
 	    }
 
 	    @Test
-	    public void testGetUserById() throws Exception {
+	    void testGetUserById() throws Exception {
 	    
 	        when(usersService.getUserById(1)).thenReturn(usersList.get(0));
 
@@ -78,29 +78,19 @@ public class HelloControllerTest {
 	                        + "}")); 
 	    }
 
-	    /*
-	    @Test
-	    public void testGetUserByIdNotFound() throws Exception {
-	     
-	        when(usersService.getUserById(999)).thenReturn(null);
-
-	      
-	        mockMvc.perform(get("/users/999"))
-	                .andExpect(status().isNotFound()); 
-	    }
-	*/
-
-
+	    
+	 
+	   
 
 	    @Test
-	    public void testBonjourEndpoint() throws Exception {
+	    void testBonjourEndpoint() throws Exception {
 	        this.mockMvc.perform(get("/"))
 	            .andExpect(status().isOk())
 	            .andExpect(content().string("Hello Im an App!"));
 	    }
 
 	    @Test
-	    public void testGrettingEndpoint() throws Exception {
+	    void testGrettingEndpoint() throws Exception {
 	        this.mockMvc.perform(get("/hello"))
 	            .andExpect(status().isOk())
 	            .andExpect(content().string("Hello"));
