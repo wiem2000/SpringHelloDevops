@@ -15,21 +15,27 @@ pipeline {
         stage('Test') {
             steps {
                
-                bat 'mvn test'
+                bat 'mvn clean test'
             }
         }
         
-         stage('SonarQube Analysis') {
+       
+        stage('SonarQube Analysis') {
+            environment {
+                SONAR_TOKEN = 'sqp_e179ba50cc940dcc7bae10e95bce0b0c4d403bbd' 
+            }
             steps {
+               
                 bat """
-                mvn clean verify sonar:sonar \
+                mvn sonar:sonar \
                 -Dsonar.projectKey=spring-hello-devops \
                 -Dsonar.projectName='spring-hello-devops' \
                 -Dsonar.host.url=http://localhost:9000 \
-                -Dsonar.token=sqp_e179ba50cc940dcc7bae10e95bce0b0c4d403bbd
+                -Dsonar.token=${SONAR_TOKEN} \
+                -Dsonar.jacoco.reportPaths=target\\jacoco.exec
                 """
             }
-        }   
+        }
 
         stage('Docker Build') {
             steps {
