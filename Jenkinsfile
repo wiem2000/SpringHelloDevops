@@ -26,7 +26,7 @@ pipeline {
                 -Dsonar.projectKey=spring-hello-devops \
                 -Dsonar.projectName='spring-hello-devops' \
                 -Dsonar.host.url=http://localhost:9000 \
-                -Dsonar.token=sqb_de8c805e72d53d26346e89e36f49f1908b8946f0
+                -Dsonar.token=sqp_e179ba50cc940dcc7bae10e95bce0b0c4d403bbd
                 """
             }
         }   
