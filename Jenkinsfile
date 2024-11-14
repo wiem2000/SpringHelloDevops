@@ -70,9 +70,9 @@ pipeline {
             steps {
                     
                 bat '''
-                    docker run -d -p 8081:8080 --name docker-spring-demo-container \
+                    docker run -p 8081:8080 --name docker-spring-demo-container \
                     --net networkmysql \
-                    -e MYSQL_HOST=networkmysql \
+                    -e MYSQL_HOST=mysqlcontainer \
                     -e MYSQL_PORT=3306 \
                     -e MYSQL_DB_NAME=db_user \
                     -e MYSQL_USER=root \
