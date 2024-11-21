@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM openjdk:24-jdk-oraclelinux8
 
 LABEL maintainer="javaguides.net"
 
