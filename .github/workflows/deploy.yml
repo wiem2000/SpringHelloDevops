@@ -1,4 +1,5 @@
 name: Deploy Spring Boot App
+runs-on: self-hosted
 
 on:
   push:
