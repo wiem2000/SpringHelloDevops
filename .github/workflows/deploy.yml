@@ -33,6 +33,6 @@ jobs:
     - name: Run Terraform
       run: |
         terraform --version  
-        terraform init -backend-config="path=SpringHelloDevops/SpringHelloDevops/terraform"
+        terraform init
         terraform apply -auto-approve 
       working-directory: SpringHelloDevops/SpringHelloDevops/terraform
