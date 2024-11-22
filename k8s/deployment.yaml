@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: spring-hello-container
-        image: wwx2/springboot-app:latest
+        image: wiembenmlouka/docker-spring-demo:latest
         ports:
         - containerPort: 8080
