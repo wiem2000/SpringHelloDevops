@@ -1,4 +1,4 @@
-FROM maven:3.8.6-openjdk-17-slim AS build 
+FROM maven:3.8.1-jdk-17 AS build
 
 WORKDIR /app
 
@@ -14,4 +14,3 @@ COPY --from=build /app/target/docker-spring-demo-0.0.1-SNAPSHOT.jar docker-sprin
 EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "docker-spring-demo.jar"]
-
