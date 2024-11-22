@@ -14,3 +14,4 @@ COPY --from=build /app/target/docker-spring-demo-0.0.1-SNAPSHOT.jar docker-sprin
 EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "docker-spring-demo.jar"]
+
