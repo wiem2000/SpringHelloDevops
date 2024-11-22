@@ -23,3 +23,4 @@ resource "helm_release" "argocd_app" {
 
   depends_on = [kubernetes_namespace.argocd_app]
 }
+

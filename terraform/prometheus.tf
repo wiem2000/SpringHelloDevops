@@ -4,6 +4,7 @@ resource "helm_release" "prometheus" {
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-prometheus-stack"
   create_namespace = true
+  timeout = 2000
 
   values = [
     <<EOF
