@@ -1,0 +1,55 @@
+name: Deploy Spring Boot App
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "Dockerfile"
+      - "k8s/**"
+      - "terraform/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Build Docker Image
+    - name: Log in to DockerHub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+    - name: Build and Push Docker Image
+      run: |
+        IMAGE_NAME=docker.io/${{ secrets.DOCKER_USERNAME }}/springboot-app:latest
+        docker build -t $IMAGE_NAME .
+        docker push $IMAGE_NAME
+
+    # Step 3: Update Kubernetes manifests
+    - name: Update Kubernetes Manifests
+      run: |
+        sed -i 's|image: .*|image: docker.io/${{ secrets.DOCKER_USERNAME }}/springboot-app:latest|' k8s-manifests/deployment.yaml
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add k8s/deployment.yaml
+        git commit -m "Update image to $IMAGE_NAME"
+        git push
+
+    # Step 4: Apply changes using Terraform
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.5.0
+
+    - name: Terraform Init
+      working-directory: terraform
+      run: terraform init
+
+    - name: Terraform Apply
+      working-directory: terraform
+      run: terraform apply -auto-approve
+
