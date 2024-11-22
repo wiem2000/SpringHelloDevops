@@ -32,7 +32,7 @@ jobs:
     # Step 3: Update Kubernetes manifests
     - name: Update Kubernetes Manifests
       run: |
-        sed -i 's|image: .*|image: docker.io/${{ secrets.DOCKER_USERNAME }}/springboot-app:latest|' k8s-manifests/deployment.yaml
+        sed -i 's|image: .*|image: docker.io/${{ secrets.DOCKER_USERNAME }}/springboot-app:latest|' k8s/deployment.yaml
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
         git add k8s/deployment.yaml
