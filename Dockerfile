@@ -5,6 +5,7 @@ COPY src /tmp/src/
 
 WORKDIR /tmp/
 
+
 RUN mvn package
 
 FROM eclipse-temurin:11
