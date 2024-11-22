@@ -1,4 +1,4 @@
-FROM maven:3.8.6-openjdk-17 AS build
+FROM maven:3.8.6-openjdk-17-slim AS build 
 
 WORKDIR /app
 
@@ -8,8 +8,6 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 FROM openjdk:17
-
-LABEL maintainer="javaguides.net"
 
 COPY --from=build /app/target/docker-spring-demo-0.0.1-SNAPSHOT.jar docker-spring-demo.jar
 
