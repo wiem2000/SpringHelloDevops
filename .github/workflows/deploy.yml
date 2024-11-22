@@ -29,17 +29,11 @@ jobs:
         docker build -t $IMAGE_NAME .
         docker push $IMAGE_NAME
 
-    # Step 3: Apply changes using Terraform
-    - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: 1.5.0
-
-    - name: Terraform Init
-      working-directory: terraform
-      run: terraform init
-
-    - name: Terraform Apply
-      working-directory: terraform
-      run: terraform apply -auto-approve
-
+    # Step 3: Run Terraform using locally installed version
+    - name: Run Terraform
+      run: |
+        export PATH=$PATH:~/mpdevops/SpringHelloDevops/terraform
+        terraform --version  # Verify terraform is available
+        terraform init -backend-config="path=~/mpdevops/SpringHelloDevops/terraform"
+        terraform apply -auto-approve -var-file=~/mpdevops/SpringHelloDevops/terraform/terraform.tfvars
+      working-directory: ~/mpdevops/SpringHelloDevops/terraform
