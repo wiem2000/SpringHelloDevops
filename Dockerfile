@@ -1,17 +1,27 @@
-FROM maven:3.8.3-jdk-11 AS build
+# Maven build container 
 
-WORKDIR /app
+FROM maven:3.8.5-openjdk-11 AS maven_build
 
-COPY pom.xml .
-COPY src ./src
+COPY pom.xml /tmp/
 
-RUN mvn clean package -DskipTests
+COPY src /tmp/src/
 
-FROM openjdk:11
+WORKDIR /tmp/
 
-COPY --from=build /app/target/docker-spring-demo-0.0.1-SNAPSHOT.jar docker-spring-demo.jar
+RUN mvn package
 
+#pull base image
+
+FROM eclipse-temurin:11
+
+#maintainer 
+MAINTAINER dstar55@yahoo.com
+#expose port 8080
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "docker-spring-demo.jar"]
+#default command
+CMD java -jar /data/hello-world-0.1.0.jar
 
+#copy hello world to docker image from builder image
+
+COPY --from=maven_build /tmp/target/hello-world-0.1.0.jar /data/hello-world-0.1.0.jar
